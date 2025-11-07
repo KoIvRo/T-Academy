@@ -1,0 +1,1 @@
+docker run -u root -v ./tests:/tests:rw -i app solve --algorithm=astar --file=/tests/cases/6_check_point_position/maze.txt --start=0,0 --end=1,1 --output=/tests/tmp/output.txt

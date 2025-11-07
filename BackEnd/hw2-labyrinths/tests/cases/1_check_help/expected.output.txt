@@ -1,0 +1,23 @@
+usage: main.py [-h] [--algorithm ALGORITHM] [--width WIDTH] [--height HEIGHT]
+               [--terrain TERRAIN] [--start START] [--end END] [--file FILE]
+               [--output OUTPUT] [--unicode UNICODE]
+               {generate,solve}
+
+Обработка аргументов.
+
+positional arguments:
+  {generate,solve}      Тип решаемой задачи
+
+options:
+  -h, --help            show this help message and exit
+  --algorithm ALGORITHM
+                        Второе слово
+  --width WIDTH         Ширина лабиринта
+  --height HEIGHT       Длина лабиринта
+  --terrain TERRAIN     Различные поверхности, что бы активировать введите 1
+  --start START         Начальная точка маршрута
+  --end END             Конечная точка маршрута
+  --file FILE           Файл с описанием лабиринта
+  --output OUTPUT       Путь для сохранения лабиринта
+  --unicode UNICODE     Отрисовка в формате unicode символов, что бы
+                        активировать введите 1

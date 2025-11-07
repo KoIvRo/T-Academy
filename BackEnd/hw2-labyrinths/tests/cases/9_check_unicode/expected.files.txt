@@ -1,0 +1,5 @@
+tests/tmp/9_check_unicode.txt
+┌─┐
+│ │
+└─┘
+===EOF===

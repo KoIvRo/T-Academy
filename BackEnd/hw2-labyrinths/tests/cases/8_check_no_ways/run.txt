@@ -1,0 +1,1 @@
+docker run -u root -v ./tests:/tests:rw -i app solve --algorithm=dijkstra --file=/tests/cases/8_check_no_ways/maze.txt --start=1,1 --end=7,1
