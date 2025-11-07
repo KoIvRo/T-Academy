@@ -1,0 +1,2 @@
+-- Задание: Вывести имена клиентов и стоимость их доставок с наценкой 10% (поле new_cost)
+SELECT clients.first_name, deliveries.delivery_cost * 1.1 AS new_cost FROM deliveries JOIN clients ON clients.id=deliveries.client_id

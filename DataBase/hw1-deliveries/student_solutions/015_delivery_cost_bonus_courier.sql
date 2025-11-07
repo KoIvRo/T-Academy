@@ -1,0 +1,2 @@
+-- Задание: Вывести имена клиентов, стоимость доставки с 10% наценкой и фамилию курьера
+SELECT clients.first_name, deliveries.delivery_cost * 1.1, couriers.last_name FROM deliveries JOIN clients ON clients.id=deliveries.client_id JOIN couriers ON couriers.id=deliveries.courier_id

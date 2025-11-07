@@ -1,0 +1,2 @@
+-- Задание: Вывести полное имя клиента и фамилию курьера в одной строке в формате 'Фамилия Имя / Фамилия'
+SELECT clients.first_name || ' ' || clients.last_name || ' / ' || couriers.last_name FROM clients, couriers

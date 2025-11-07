@@ -1,0 +1,2 @@
+-- Задание: Вывести имена клиентов и стоимость доставок, умноженную на 12 и с конкатенацией фамилии курьера
+SELECT clients.first_name || ' - ' || couriers.last_name, deliveries.delivery_cost * 12 FROM deliveries JOIN clients ON clients.id=deliveries.client_id JOIN couriers ON couriers.id=deliveries.courier_id
