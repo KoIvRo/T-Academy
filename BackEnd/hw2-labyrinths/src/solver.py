@@ -1,6 +1,6 @@
-from maze import Maze
 from cell import CellType
-from solve_algorithms import Dijkstra, Astar
+from maze import Maze
+from solve_algorithms import Astar, Dijkstra
 
 
 class Solver:
@@ -19,13 +19,13 @@ class Solver:
 
     @staticmethod
     def _choose_algorithm(str_alg) -> type:
-        algorithms = {
-            "dijkstra": Dijkstra,
-            "astar": Astar
-        }
+        algorithms = {"dijkstra": Dijkstra, "astar": Astar}
         if str_alg in algorithms:
             return algorithms[str_alg]
-        raise ValueError("Неизвестный алгоритм. Пожалуйста используйте: dijkstra, astar")
+        raise ValueError(
+            "Неизвестный алгоритм. Пожалуйста используйте: dijkstra, astar"
+        )
+
 
 class PointSetter:
     @staticmethod
@@ -42,10 +42,10 @@ class PointSetter:
     def _validate_points(maze: Maze, coord: str) -> tuple:
         coord = list(map(int, coord.split(",")))
 
-        if len(coord) < 2 or len(coord) > 2:
+        if len(coord) != 2:
             raise ValueError("Неверный формат входных данных. Ожидается: x,y")
 
         if maze.is_cell_possible(coord[0], coord[1]):
             return tuple(coord)
-        else:
-            raise ValueError("Ошибка в координатах")
+
+        raise ValueError("Ошибка в координатах")

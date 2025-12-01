@@ -1,7 +1,9 @@
 import queue
-from maze import Maze
 from abc import ABC, abstractmethod
+
+from maze import Maze
 from path import Path
+
 
 class Algorithm(ABC):
     def __init__(self, maze: Maze, start: tuple, end: tuple):
@@ -18,8 +20,12 @@ class Dijkstra(Algorithm):
     def __init__(self, maze: Maze, start: tuple, end: tuple):
         super().__init__(maze, start, end)
 
-        self.distance: dict[tuple[int, int]: int] = InitializationServises.initialize_distance(self.maze, self.start)
-        self.previous: dict[tuple[int, int]: tuple[int, int]] = InitializationServises.initialize_previous(self.maze)
+        self.distance: dict[tuple[int, int] : int] = (
+            InitializationServises.initialize_distance(self.maze, self.start)
+        )
+        self.previous: dict[tuple[int, int] : tuple[int, int]] = (
+            InitializationServises.initialize_previous(self.maze)
+        )
         self.visited = set()
         self.pr_queue = queue.PriorityQueue()
 
@@ -48,7 +54,7 @@ class Dijkstra(Algorithm):
             return
         if neighbour in self.visited:
             return
-                
+
         neighbour_cost = self.maze.get_cell(neighbour[0], neighbour[1]).cost
         new_dist = cur_cell_dist + neighbour_cost
         if new_dist < self.distance[neighbour]:
@@ -61,9 +67,15 @@ class Astar(Algorithm):
     def __init__(self, maze: Maze, start: tuple, end: tuple):
         super().__init__(maze, start, end)
 
-        self.real_distance = InitializationServises.initialize_distance(self.maze, self.start)
-        self.heuristic_distance: dict[tuple[int, int]: int] = InitializationServises.initialize_distance(self.maze, self.start)
-        self.previous: dict[tuple[int, int]: tuple[int, int]] = InitializationServises.initialize_previous(self.maze)
+        self.real_distance = InitializationServises.initialize_distance(
+            self.maze, self.start
+        )
+        self.heuristic_distance: dict[tuple[int, int] : int] = (
+            InitializationServises.initialize_distance(self.maze, self.start)
+        )
+        self.previous: dict[tuple[int, int] : tuple[int, int]] = (
+            InitializationServises.initialize_previous(self.maze)
+        )
         self.visited = set()
         self.pr_queue = queue.PriorityQueue()
 
@@ -100,7 +112,9 @@ class Astar(Algorithm):
         if new_real_distance < self.real_distance[neighbour]:
             self.previous[neighbour] = cur_cell_coord
             self.real_distance[neighbour] = new_real_distance
-            self.heuristic_distance[neighbour] = new_real_distance + Astar._heruistic(neighbour, self.end)
+            self.heuristic_distance[neighbour] = new_real_distance + Astar._heruistic(
+                neighbour, self.end
+            )
             self.pr_queue.put((self.heuristic_distance[neighbour], neighbour))
 
     @staticmethod
@@ -122,6 +136,6 @@ class InitializationServises:
         distance = {}
         for y in range(maze.height):
             for x in range(maze.width):
-                distance[(x, y)] = float('inf')
+                distance[(x, y)] = float("inf")
         distance[start] = 0
         return distance

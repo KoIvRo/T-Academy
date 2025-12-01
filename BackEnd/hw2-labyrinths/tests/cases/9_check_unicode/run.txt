@@ -1,1 +1,1 @@
-docker run -u root -v ./tests:/tests:rw -i app generate --algorithm=prim --height=1 --width=1 --output=/tests/tmp/9_check_unicode.txt --unicode=1
+docker run -u root -v ./tests:/tests:rw -i app generate --algorithm=prim --height=1 --width=1 --output=/tests/tmp/9_check_unicode.txt --unicode

@@ -1,16 +1,15 @@
 import os
 import sys
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 sys.path.append(os.path.join(os.path.dirname(__file__), "..", "..", "src"))
 
 from generator import Generator
-from generation_algorithms import DFS, Prim
-from maze import Maze, CellType
+from maze import CellType, Maze
+
 
 class TestGenerator(unittest.TestCase):
-
     @patch("generation_algorithms.DFS.dfs_generate")
     def test_dfs(self, dfs):
         maze = Generator.generate(2, 2, "dfs")
@@ -40,7 +39,7 @@ class TestGenerator(unittest.TestCase):
     def test_terrain(self, mock_choice, mock_randint):
         mock_choice.return_value = CellType.SAND
         mock_randint.return_value = 1
-        maze = Maze(3,3)
-        maze.set_cell(1,1,CellType.SPACE)
+        maze = Maze(3, 3)
+        maze.set_cell(1, 1, CellType.SPACE)
         Generator._add_terrain(maze)
-        self.assertEqual(maze.get_cell(1,1).type, CellType.SAND)
+        self.assertEqual(maze.get_cell(1, 1).type, CellType.SAND)

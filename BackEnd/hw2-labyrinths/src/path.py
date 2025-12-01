@@ -5,7 +5,9 @@ class Path:
         self.end = end
 
     @staticmethod
-    def collect_path(start, end, previous: dict[tuple[int, int], tuple[int, int]]) -> list:
+    def collect_path(
+        start, end, previous: dict[tuple[int, int], tuple[int, int]]
+    ) -> list:
         path = []
         current = end
 

@@ -1,8 +1,10 @@
 import argparse
+
+from file_manager import Input, Output
 from generator import Generator
-from file_manager import Output, Input
-from solver import Solver
 from maze import Maze
+from solver import Solver
+from maze_render import UnicodeRender
 
 
 def main() -> None:
@@ -11,7 +13,6 @@ def main() -> None:
 
     REQUIRED_SOLVE_ARGS = ["algorithm", "file", "start", "end"]
     USAGE_SOLVE = "Использование: python main.py solve --algorithm=(dijkstra, astar) --file=(file) --start=(int,int) --end=(int,int)"
-
 
     parser = argparse.ArgumentParser(description="Обработка аргументов.")
 
@@ -23,10 +24,15 @@ def main() -> None:
     parser.add_argument("--width", type=int, help="Ширина лабиринта", default=None)
     parser.add_argument("--height", type=int, help="Длина лабиринта", default=None)
     parser.add_argument(
-        "--terrain", type=bool, help="Различные поверхности, что бы активировать введите 1", default=None
+        "--terrain",
+        action='store_true',
+        help="Различные поверхности",
+        default=False,
     )
 
-    parser.add_argument("--start", type=str, help="Начальная точка маршрута", default=None)
+    parser.add_argument(
+        "--start", type=str, help="Начальная точка маршрута", default=None
+    )
     parser.add_argument("--end", type=str, help="Конечная точка маршрута", default=None)
     parser.add_argument(
         "--file", type=str, help="Файл с описанием лабиринта", default=None
@@ -36,7 +42,10 @@ def main() -> None:
         "--output", type=str, help="Путь для сохранения лабиринта", default=None
     )
     parser.add_argument(
-        "--unicode", type=bool, help="Отрисовка в формате unicode символов, что бы активировать введите 1", default=None
+        "--unicode",
+        action='store_true',
+        help="Отрисовка в формате unicode символов",
+        default=False,
     )
 
     args = parser.parse_args()
@@ -61,20 +70,23 @@ def validate_arguments(args, required_args, usage) -> bool:
 
 def handler_generate(args):
     try:
-        maze: Maze = Generator.generate(args.width, args.height, args.algorithm, args.terrain)
+        maze: Maze = Generator.generate(
+            args.width, args.height, args.algorithm, args.terrain
+        )
 
         handle_output(maze, args.unicode, args.output)
     except Exception as e:
         print(e)
         return
 
+
 def handler_solve(args):
     try:
         maze: Maze = Input.input_from_file(args.file)
 
         maze_solver = Solver(maze, args.start, args.end, args.algorithm)
-        succes = maze_solver.execute()
-        if not succes:
+        success = maze_solver.execute()
+        if not success:
             print("Невозможно найти маршрут")
 
         handle_output(maze, args.unicode, args.output)
@@ -83,10 +95,10 @@ def handler_solve(args):
         return
 
 
-def handle_output(maze: Maze, unicode=None, file_name=None) -> None:
+def handle_output(maze: Maze, unicode=False, file_name=None) -> None:
     if unicode:
-        maze.to_unicode_converse()
-    
+        UnicodeRender.render(maze)
+
     if file_name:
         Output.file_print(maze, file_name)
     else:
